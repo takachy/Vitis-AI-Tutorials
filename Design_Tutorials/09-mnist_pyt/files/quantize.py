@@ -24,16 +24,64 @@ import os
 import sys
 import argparse
 import random
+import numpy as np
 import torch
 import torchvision
+import torchvision.transforms as transforms
+from PIL import Image
 import torch.nn as nn
 import torch.nn.functional as F
-from pytorch_nndct.apis import torch_quantizer, dump_xmodel
+from pytorch_nndct.apis import torch_quanttizer, dump_xmodel
 
 from common import *
 
 
 DIVIDER = '-----------------------------------------'
+
+def unpickle(file):
+    import pickle
+    with open(file, 'rb') as fo:
+        dict = pickle.load(fo, encoding='bytes')
+    return dict
+
+def load_picture(): #return trainsets, trainsets_small, testsets, testsets_small
+    transform = transforms.Compose(
+        [transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+
+    trainsets = list()
+    trainsets_small = list()
+    for i in range(1, 6):
+        d = unpickle("../data/cifar-10-batches-py/data_batch_{0}".format(i))
+        for j in range(len(d[b"data"])):
+            np_image = d[b"data"][j].reshape(3, 32, 32)
+            np_image = np_image.transpose([1, 2, 0])
+            image = Image.fromarray(np_image, mode="RGB")
+            resized_image = np.array(image.resize((224, 224)))
+            resized_image = resized_image.transpose([2, 0, 1])
+            # d[b"labels"][j] = change_label[d[b"labels"][j]]
+            trainsets.append([resized_image, d[b"labels"][j]])
+            if d[b"labels"][j] not in set(range(8, 10)):
+                trainsets_small.append([resized_image, d[b"labels"][j]])
+    print("Finish make train-data")
+    # testset = torchvision.datasets.CIFAR10(root='./data', train=False,
+    #                                        download=True, transform=transform)
+    testsets = list()
+    testsets_small = list()
+    d = unpickle("../data/cifar-10-batches-py/test_batch")
+    for j in range(len(d[b"data"])):
+        np_image = d[b"data"][j].reshape(3, 32, 32)
+        np_image = np_image.transpose([1, 2, 0])
+        image = Image.fromarray(np_image, mode="RGB")
+        resized_image = np.array(image.resize((224, 224)))
+        resized_image = resized_image.transpose([2, 0, 1])
+        # d[b"labels"][j] = change_label[d[b"labels"][j]]
+        testsets.append([resized_image, d[b"labels"][j]])
+        if d[b"labels"][j] not in set(range(8, 10)):
+            testsets_small.append([resized_image, d[b"labels"][j]])
+    print("Finish make test-data")
+    return trainsets, trainsets_small, testsets, testsets_small
 
 
 
@@ -57,7 +105,9 @@ def quantize(build_dir,quant_mode,batchsize):
     device = torch.device('cpu')
 
   # load trained model
-  model = CNN().to(device)
+  model = torchvision.models.resnet50()
+  model.fc = torch.nn.Identity()
+  model = model.to(device)
   model.load_state_dict(torch.load(os.path.join(float_model,'f_model.pth')))
 
   # force to merge BN with CONV for better quantization accuracy

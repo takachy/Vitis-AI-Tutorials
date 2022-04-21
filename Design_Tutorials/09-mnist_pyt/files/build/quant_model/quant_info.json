@@ -1,0 +1,25 @@
+{
+  "param":
+  {
+    "CNN::network.0.weight":[8,7],
+    "CNN::network.0.bias":[8,8],
+    "CNN::network.3.weight":[8,8],
+    "CNN::network.3.bias":[8,6],
+    "CNN::network.6.weight":[8,8],
+    "CNN::network.6.bias":[8,6],
+    "CNN::network.9.weight":[8,7],
+    "CNN::network.9.bias":[8,4]
+  },
+  "output":
+  {
+    "CNN::input_0":[8,6],
+    "CNN::CNN/Sequential[network]/ReLU[2]/input.4":[8,6],
+    "CNN::CNN/Sequential[network]/ReLU[5]/input.7":[8,5],
+    "CNN::CNN/Sequential[network]/ReLU[8]/input.10":[8,5],
+    "CNN::CNN/Sequential[network]/Conv2d[9]/input":[8,4]
+  },
+  "input":
+  {
+
+  }
+}

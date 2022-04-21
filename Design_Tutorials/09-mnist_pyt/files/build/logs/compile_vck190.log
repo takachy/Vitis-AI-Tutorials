@@ -1,0 +1,14 @@
+[UNILOG][INFO] Target architecture: DPUCVDX8G_ISA1_C32B3
+[UNILOG][INFO] Compile mode: dpu
+[UNILOG][INFO] Debug mode: function
+[UNILOG][INFO] Target architecture: DPUCVDX8G_ISA1_C32B3
+[UNILOG][INFO] Graph name: CNN, with op num: 31
+[UNILOG][INFO] Begin to compile...
+[UNILOG][INFO] Total device subgraph number 3, DPU subgraph number 1
+[UNILOG][INFO] Compile done.
+[UNILOG][INFO] The meta json is saved to "/workspace/./build/compiled_model/meta.json"
+[UNILOG][INFO] The compiled xmodel is saved to "/workspace/./build/compiled_model/CNN_vck190.xmodel"
+[UNILOG][INFO] The compiled xmodel's md5sum is 8c05efa034f818be572eb577cfd9899c, and has been saved to "/workspace/./build/compiled_model/md5sum.txt"
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************

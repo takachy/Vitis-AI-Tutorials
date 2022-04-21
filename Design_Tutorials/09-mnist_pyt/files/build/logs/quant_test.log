@@ -1,0 +1,43 @@
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+
+[0;32m[VAIQ_NOTE]: Loading NNDCT kernels...[0m
+
+-----------------------------------------
+PyTorch version :  1.7.1+cpu
+3.6.13 | packaged by conda-forge | (default, Feb 19 2021, 05:36:01) 
+[GCC 9.3.0]
+-----------------------------------------
+ Command line options:
+--build_dir    :  ./build
+--quant_mode   :  test
+--batchsize    :  100
+-----------------------------------------
+No CUDA devices available..selecting CPU
+
+[0;33m[VAIQ_WARN]: CUDA is not available, change device to CPU[0m
+
+[0;32m[VAIQ_NOTE]: Quantization test process start up...[0m
+
+[0;32m[VAIQ_NOTE]: =>Quant Module is in 'cpu'.[0m
+
+[0;32m[VAIQ_NOTE]: =>Parsing CNN...[0m
+
+[0;32m[VAIQ_NOTE]: Start to trace model...[0m
+
+[0;32m[VAIQ_NOTE]: Finish tracing.[0m
+
+[0;32m[VAIQ_NOTE]: Processing ops...[0m
+                                                  | 0/13 [00:00<?, ?it/s]                                                  | 0/13 [00:00<?, ?it/s, OpInfo: name = input_0, type = Param]███▊                                              | 1/13 [00:00<00:00, 5377.31it/s, OpInfo: name = CNN/Sequential[network]/Conv2d[0]/input.2, type = _convolution]███████▋                                          | 2/13 [00:00<00:00, 2941.31it/s, OpInfo: name = CNN/Sequential[network]/BatchNorm2d[1]/input.3, type = batch_norm]███████████▌                                      | 3/13 [00:00<00:00, 2505.06it/s, OpInfo: name = CNN/Sequential[network]/ReLU[2]/input.4, type = relu_]            ███████████████▍                                  | 4/13 [00:00<00:00, 2721.37it/s, OpInfo: name = CNN/Sequential[network]/Conv2d[3]/input.5, type = _convolution]███████████████████▏                              | 5/13 [00:00<00:00, 2820.27it/s, OpInfo: name = CNN/Sequential[network]/BatchNorm2d[4]/input.6, type = batch_norm]███████████████████████                           | 6/13 [00:00<00:00, 2911.03it/s, OpInfo: name = CNN/Sequential[network]/ReLU[5]/input.7, type = relu_]            ██████████████████████████▉                       | 7/13 [00:00<00:00, 3138.11it/s, OpInfo: name = CNN/Sequential[network]/Conv2d[6]/input.8, type = _convolution]██████████████████████████████▊                   | 8/13 [00:00<00:00, 3126.87it/s, OpInfo: name = CNN/Sequential[network]/BatchNorm2d[7]/input.9, type = batch_norm]██████████████████████████████████▌               | 9/13 [00:00<00:00, 3177.24it/s, OpInfo: name = CNN/Sequential[network]/ReLU[8]/input.10, type = relu_]           ██████████████████████████████████████▍           | 10/13 [00:00<00:00, 3347.41it/s, OpInfo: name = CNN/Sequential[network]/Conv2d[9]/input, type = _convolution]██████████████████████████████████████████▎       | 11/13 [00:00<00:00, 3437.95it/s, OpInfo: name = CNN/Sequential[network]/BatchNorm2d[10]/505, type = batch_norm]██████████████████████████████████████████████▏   | 12/13 [00:00<00:00, 3531.80it/s, OpInfo: name = CNN/Sequential[network]/Flatten[11]/508, type = flatten]       ██████████████████████████████████████████████████| 13/13 [00:00<00:00, 3476.53it/s, OpInfo: name = CNN/Sequential[network]/Flatten[11]/508, type = flatten]
+
+[0;32m[VAIQ_NOTE]: =>Doing weights equalization...[0m
+
+[0;32m[VAIQ_NOTE]: =>Quantizable module is generated.(./build/quant_model/CNN.py)[0m
+
+[0;32m[VAIQ_NOTE]: =>Get module with quantization.[0m
+
+Test set: Accuracy: 9892/10000 (98.92%)
+
+
+[0;32m[VAIQ_NOTE]: =>Converting to xmodel ...[0m
+
+[0;32m[VAIQ_NOTE]: =>Successfully convert 'CNN' to xmodel.(./build/quant_model/CNN_int.xmodel)[0m

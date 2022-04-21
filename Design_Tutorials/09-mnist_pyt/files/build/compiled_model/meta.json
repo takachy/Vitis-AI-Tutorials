@@ -1,0 +1,8 @@
+{
+    "lib": "libvart-dpu-runner.so",
+    "filename": "CNN_vck190.xmodel",
+    "kernel": [
+        "subgraph_CNN__CNN_Sequential_network__Conv2d_0__input_2"
+    ],
+    "target": "DPUCVDX8G_ISA1_C32B3"
+}
