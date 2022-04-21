@@ -31,7 +31,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 import torch.nn as nn
 import torch.nn.functional as F
-from pytorch_nndct.apis import torch_quanttizer, dump_xmodel
+from pytorch_nndct.apis import torch_quantizer, dump_xmodel
 
 from common import *
 
