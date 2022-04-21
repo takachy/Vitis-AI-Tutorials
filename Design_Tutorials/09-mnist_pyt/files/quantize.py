@@ -123,10 +123,12 @@ def quantize(build_dir,quant_mode,batchsize):
 
 
   # data loader
-  test_dataset = torchvision.datasets.MNIST(dset_dir,
-                                            train=False, 
-                                            download=True,
-                                            transform=test_transform)
+  _, _, _, testsets_s = load_picture()
+  test_dataset = testsets_s
+  # test_dataset = torchvision.datasets.MNIST(dset_dir,
+  #                                           train=False, 
+  #                                           download=True,
+  #                                           transform=test_transform)
 
   test_loader = torch.utils.data.DataLoader(test_dataset,
                                             batch_size=batchsize, 
