@@ -51,19 +51,19 @@ def load_picture(): #return trainsets, trainsets_small, testsets, testsets_small
 
     trainsets = list()
     trainsets_small = list()
-    for i in range(1, 6):
-        d = unpickle("./data/cifar-10-batches-py/data_batch_{0}".format(i))
-        for j in range(len(d[b"data"])):
-            np_image = d[b"data"][j].reshape(3, 32, 32)
-            np_image = np_image.transpose([1, 2, 0])
-            image = Image.fromarray(np_image, mode="RGB")
-            resized_image = np.array(image.resize((224, 224)))
-            resized_image = resized_image.transpose([2, 0, 1])
-            # d[b"labels"][j] = change_label[d[b"labels"][j]]
-            trainsets.append([resized_image, d[b"labels"][j]])
-            if d[b"labels"][j] not in set(range(8, 10)):
-                trainsets_small.append([resized_image, d[b"labels"][j]])
-    print("Finish make train-data")
+    # for i in range(1, 6):
+    #     d = unpickle("./data/cifar-10-batches-py/data_batch_{0}".format(i))
+    #     for j in range(len(d[b"data"])):
+    #         np_image = d[b"data"][j].reshape(3, 32, 32)
+    #         np_image = np_image.transpose([1, 2, 0])
+    #         image = Image.fromarray(np_image, mode="RGB")
+    #         resized_image = np.array(image.resize((224, 224)))
+    #         resized_image = resized_image.transpose([2, 0, 1])
+    #         # d[b"labels"][j] = change_label[d[b"labels"][j]]
+    #         trainsets.append([resized_image, d[b"labels"][j]])
+    #         if d[b"labels"][j] not in set(range(8, 10)):
+    #             trainsets_small.append([resized_image, d[b"labels"][j]])
+    # print("Finish make train-data")
     # testset = torchvision.datasets.CIFAR10(root='./data', train=False,
     #                                        download=True, transform=transform)
     testsets = list()
@@ -76,7 +76,7 @@ def load_picture(): #return trainsets, trainsets_small, testsets, testsets_small
         resized_image = np.array(image.resize((224, 224)))
         resized_image = resized_image.transpose([2, 0, 1])
         # d[b"labels"][j] = change_label[d[b"labels"][j]]
-        testsets.append([resized_image, d[b"labels"][j]])
+        # testsets.append([resized_image, d[b"labels"][j]])
         if d[b"labels"][j] not in set(range(8, 10)):
             testsets_small.append([resized_image, d[b"labels"][j]])
     print("Finish make test-data")
