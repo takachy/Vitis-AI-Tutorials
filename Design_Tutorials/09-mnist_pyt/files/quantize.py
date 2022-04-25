@@ -31,8 +31,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 import torch.nn as nn
 import torch.nn.functional as F
-from pytorch_nndct.apis import torch_quantizer, dump_xmodel
-
+from pytorch_nndct.apis import torch_quantizer
 from common import *
 
 
@@ -53,7 +52,7 @@ def load_picture(): #return trainsets, trainsets_small, testsets, testsets_small
     trainsets = list()
     trainsets_small = list()
     for i in range(1, 6):
-        d = unpickle("../data/cifar-10-batches-py/data_batch_{0}".format(i))
+        d = unpickle("./data/cifar-10-batches-py/data_batch_{0}".format(i))
         for j in range(len(d[b"data"])):
             np_image = d[b"data"][j].reshape(3, 32, 32)
             np_image = np_image.transpose([1, 2, 0])
@@ -69,7 +68,7 @@ def load_picture(): #return trainsets, trainsets_small, testsets, testsets_small
     #                                        download=True, transform=transform)
     testsets = list()
     testsets_small = list()
-    d = unpickle("../data/cifar-10-batches-py/test_batch")
+    d = unpickle("./data/cifar-10-batches-py/test_batch")
     for j in range(len(d[b"data"])):
         np_image = d[b"data"][j].reshape(3, 32, 32)
         np_image = np_image.transpose([1, 2, 0])
@@ -117,7 +116,7 @@ def quantize(build_dir,quant_mode,batchsize):
   if (quant_mode=='test'):
     batchsize = 1
   
-  rand_in = torch.randn([batchsize, 1, 28, 28])
+  rand_in = torch.randn([batchsize, 3, 224, 224])
   quantizer = torch_quantizer(quant_mode, model, (rand_in), output_dir=quant_model) 
   quantized_model = quantizer.quant_model
 
