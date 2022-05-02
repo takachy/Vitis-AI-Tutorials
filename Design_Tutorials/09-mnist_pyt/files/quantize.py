@@ -106,8 +106,9 @@ def quantize(build_dir,quant_mode,batchsize):
   # load trained model
   model = torchvision.models.resnet50()
   model.fc = torch.nn.Identity()
+  # model = CNN()
   model = model.to(device)
-  model.load_state_dict(torch.load(os.path.join(float_model,'f_model.pth')))
+  model.load_state_dict(torch.load(os.path.join(float_model,'my_f_model.pth')))
 
   # force to merge BN with CONV for better quantization accuracy
   optimize = 1
@@ -117,24 +118,25 @@ def quantize(build_dir,quant_mode,batchsize):
     batchsize = 1
   
   rand_in = torch.randn([batchsize, 3, 224, 224])
+  # rand_in = torch.randn([batchsize, 1, 28, 28])
   quantizer = torch_quantizer(quant_mode, model, (rand_in), output_dir=quant_model) 
   quantized_model = quantizer.quant_model
 
 
-  # data loader
-  _, _, _, testsets_s = load_picture()
-  test_dataset = testsets_s
-  # test_dataset = torchvision.datasets.MNIST(dset_dir,
-  #                                           train=False, 
-  #                                           download=True,
-  #                                           transform=test_transform)
+  # # # data loader
+  # _, _, _, testsets_s = load_picture()
+  # test_dataset = testsets_s
+  # # test_dataset = torchvision.datasets.MNIST(dset_dir,
+  # #                                           train=False, 
+  # #                                           download=True,
+  # #                                           transform=test_transform)
 
-  test_loader = torch.utils.data.DataLoader(test_dataset,
-                                            batch_size=batchsize, 
-                                            shuffle=False)
+  # test_loader = torch.utils.data.DataLoader(test_dataset,
+  #                                           batch_size=batchsize, 
+  #                                           shuffle=False)
 
-  # evaluate 
-  test(quantized_model, device, test_loader)
+  # # evaluate 
+  # test(quantized_model, device, test_loader)
 
 
   # export config
